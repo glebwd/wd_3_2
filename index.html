@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Глеб Булойчик — Backend-разработчик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Onest:wght@300;400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#160404;--bg2:#210707;--fg:#EEEAD7;--mut:#9aa293;--acc:#e05a4b;--acc2:#6D0808;--line:rgba(238,234,215,.12);--glow:rgba(224,90,75,.16)}
+[data-theme=light]{--bg:#EEEAD7;--bg2:#e4dfc9;--fg:#2D0000;--mut:#667060;--acc:#6D0808;--acc2:#6D0808;--line:rgba(45,0,0,.15);--glow:rgba(109,8,8,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Onest',sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(500px circle at var(--mx,50%) var(--my,30%),var(--glow),transparent 70%);z-index:0}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.35;mask-image:radial-gradient(ellipse at 50% 20%,#000,transparent 75%);z-index:0}
+.mono{font-family:'JetBrains Mono',monospace}
+main,nav,footer{position:relative;z-index:1}
+.wrap{width:100%;padding:0 clamp(1.5rem,4.5vw,4.5rem)}
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'JetBrains Mono';font-weight:700;color:var(--fg);text-decoration:none}.logo b{color:var(--acc)}
+.links{display:flex;gap:1.6rem;align-items:center}
+.links a{color:var(--mut);text-decoration:none;font:500 .82rem 'JetBrains Mono';transition:color .2s}.links a:hover{color:var(--acc)}
+.btn-s{font:500 .75rem 'JetBrains Mono';color:var(--fg);background:none;border:1px solid var(--line);padding:.45rem .7rem;cursor:pointer;display:inline-flex;gap:.5rem;align-items:center;transition:.2s}
+.btn-s:hover{border-color:var(--acc);color:var(--acc)}
+kbd{font:inherit;font-size:.7rem;border:1px solid var(--line);padding:0 .3rem;color:var(--mut)}
+.hero{min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,6vw,6rem);align-items:center;padding:2rem 0;scroll-snap-align:start}
+.hero>div:first-child{display:flex;flex-direction:column;justify-content:center}
+.prompt{font:500 .85rem 'JetBrains Mono';color:var(--mut);margin-bottom:1.2rem}.prompt span{color:var(--acc)}
+h1{font:600 clamp(2rem,4.2vw,3.5rem)/1.05 'Unbounded';letter-spacing:-.035em}
+h1 em{font-style:normal;color:var(--acc);display:block}
+.typed{font:500 clamp(.95rem,1.35vw,1.15rem) 'JetBrains Mono';margin:1.3rem 0 .9rem;min-height:1.8em}
+.typed::before{content:"> ";color:var(--acc)}
+.cursor{display:inline-block;width:.6ch;height:1.1em;background:var(--acc);vertical-align:-.15em;margin-left:2px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.lead{color:var(--mut);line-height:1.65;max-width:52ch;border-left:3px solid var(--acc);padding-left:1.1rem}
+.cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.btn{font:500 .9rem 'Onest';padding:.8rem 1.4rem;border:1px solid var(--acc);background:var(--acc);color:var(--bg);cursor:pointer;text-decoration:none;transition:.2s}
+.btn:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--mut)}
+.btn.ghost{background:none;color:var(--fg);border-color:var(--line)}.btn.ghost:hover{border-color:var(--acc);color:var(--acc)}
+.photo{position:relative;height:min(calc(100vh - 64px - 5rem),600px);aspect-ratio:4/5;background:var(--bg2);clip-path:polygon(0 0,calc(100% - 44px) 0,100% 44px,100% 100%,0 100%);overflow:hidden;border:1px solid var(--line)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s}.photo:hover img{transform:scale(1.03)}
+.photo .fb{position:absolute;inset:0;display:none;place-items:center;font:700 6rem 'Unbounded';color:var(--acc)}
+.chip{position:absolute;left:1rem;bottom:1rem;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);padding:.6rem .85rem;font:.74rem/1.6 'JetBrains Mono'}
+.chip i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4ade80;margin-right:.5rem;animation:pl 2s infinite}
+@keyframes pl{50%{opacity:.35}}
+section{min-height:calc(100vh - 64px);display:flex;padding:2.5rem 0;scroll-snap-align:start;scroll-margin-top:64px}
+section>.wrap{display:flex;flex-direction:column;justify-content:center}
+.sh{font:500 .85rem 'JetBrains Mono';color:var(--acc);margin-bottom:.6rem}
+h2{font:600 clamp(1.5rem,2.8vw,2.3rem) 'Unbounded';letter-spacing:-.03em;margin-bottom:1.3rem}
+.tbar{display:flex;gap:.4rem;align-items:center;padding:.6rem .9rem;border-bottom:1px solid var(--line);color:var(--mut);font-size:.75rem}
+.tbar i{width:10px;height:10px;border-radius:50%;background:var(--line)}.tbar i:first-child{background:var(--acc)}.tbar span{margin-left:.6rem}
+.tbody{height:210px;padding:.8rem 1rem;overflow-y:auto;cursor:text}
+.tbody .o{white-space:pre-wrap;color:var(--mut)}.tbody .o b{color:var(--fg);font-weight:500}.tbody .c{color:var(--fg)}.tbody .c::before{content:"$ ";color:var(--acc)}
+.tin{display:flex;gap:.6rem}.tin::before{content:"$";color:var(--acc)}
+.tin input{flex:1;background:none;border:0;outline:0;color:var(--fg);font:inherit;caret-color:var(--acc)}
+.hint{padding:.5rem 1rem .7rem;border-top:1px solid var(--line);color:var(--mut);font:.75rem 'JetBrains Mono'}.hint button{background:none;border:0;color:var(--acc);font:inherit;cursor:pointer;margin-right:.8rem;text-decoration:underline dashed}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);padding:clamp(1.2rem,2vw,2rem);background:var(--bg2);position:relative;transition:.25s;transform-style:preserve-3d}
+.card:hover{border-color:var(--acc);transform:translateY(-4px)}
+.card .n{font:700 clamp(2rem,3.5vw,3rem) 'Unbounded';color:var(--acc);opacity:.35;line-height:1}
+.card h3{font:600 clamp(1.05rem,1.5vw,1.3rem) 'Unbounded';margin:1.2rem 0 .8rem}
+.card p{color:var(--mut);font-size:.93rem;line-height:1.6}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:1.5rem}.tags span{font:.7rem 'JetBrains Mono';border:1px solid var(--line);padding:.15rem .5rem;color:var(--mut)}
+.contact{display:grid;grid-template-columns:repeat(2,minmax(0,300px));gap:1rem;margin-top:2rem}
+.cbox{display:block;border:1px solid var(--line);padding:1rem 1.3rem;text-align:left;background:var(--bg2);cursor:pointer;color:var(--fg);font:inherit;transition:.25s}
+.cbox:hover{border-color:var(--acc);transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--acc2)}
+.cbox small{display:block;font:.72rem 'JetBrains Mono';color:var(--mut);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}
+.cbox b{font:500 1.05rem 'JetBrains Mono'}.cbox span{display:block;margin-top:.4rem;font-size:.7rem;color:var(--acc);font-family:'JetBrains Mono'}
+footer{border-top:1px solid var(--line);padding:1.5rem 0;color:var(--mut);font:.78rem 'JetBrains Mono'}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.dock{position:fixed;right:1.2rem;bottom:1.2rem;width:min(430px,calc(100vw - 2.4rem));z-index:60;border:1px solid var(--acc);background:var(--bg2);font:.8rem/1.6 'JetBrains Mono',monospace;box-shadow:0 18px 50px rgba(0,0,0,.4);opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;transition:.25s}
+.dock.open{opacity:1;transform:none;pointer-events:auto}
+.dock .tbar button{margin-left:auto;background:none;border:0;color:var(--mut);cursor:pointer;font:inherit}.dock .tbar button:hover{color:var(--acc)}
+.launch{position:fixed;right:1.2rem;bottom:1.2rem;z-index:55;background:var(--bg2)}.launch.hide{display:none}
+#contact{scroll-margin-top:80px}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+#pal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-start;justify-content:center;padding-top:18vh;z-index:100}
+#pal.open{display:flex}
+.pb{width:min(520px,92vw);background:var(--bg);border:1px solid var(--acc);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.pb input{width:100%;padding:1rem 1.2rem;background:none;border:0;border-bottom:1px solid var(--line);outline:0;color:var(--fg);font:1rem 'JetBrains Mono'}
+.pb ul{list-style:none;max-height:300px;overflow:auto}
+.pb li{padding:.75rem 1.2rem;font:.85rem 'JetBrains Mono';color:var(--mut);cursor:pointer;display:flex;justify-content:space-between}
+.pb li.sel{background:var(--acc);color:var(--bg)}
+.toast{position:fixed;left:1.5rem;bottom:1.5rem;background:var(--fg);color:var(--bg);padding:.7rem 1.1rem;font:.8rem 'JetBrains Mono';border-left:4px solid var(--acc);opacity:0;transform:translateY(8px);transition:.25s;z-index:200;pointer-events:none}.toast.v{opacity:1;transform:none}
+@media(max-width:900px){.photo{height:auto;width:min(100%,340px);aspect-ratio:4/5;justify-self:center}.contact{grid-template-columns:1fr}.hero{grid-template-columns:1fr;min-height:auto}.photo{order:-1}section{min-height:auto}.grid3,.contact{grid-template-columns:1fr}.links a{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#top">~/<b>gleb</b>.dev</a>
+  <div class="links">
+    <a href="#" id="navTerm">/terminal</a><a href="#contact">/contact</a>
+    <button class="btn-s" id="palBtn"><kbd>Ctrl</kbd><kbd>K</kbd></button>
+    <button class="btn-s" id="themeBtn" title="Тема">◐</button>
+  </div>
+</div></nav>
+
+<main id="top"><div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="prompt"><span>gleb@server</span>:~$ whoami</div>
+      <h1>Глеб Булойчик<em>Backend-разработчик</em></h1>
+      <div class="typed"><span id="typed"></span><span class="cursor"></span></div>
+      <p class="lead">Проектирую невидимую часть продукта так, чтобы база не ложилась в пиковые часы, а чужой код читался с первого раза. Сложная бизнес-логика — в предсказуемые системы без ночных алертов.</p>
+      <div class="cta">
+        <a class="btn" href="https://t.me/ho10120" target="_blank" rel="noopener">Написать в Telegram →</a>
+        <button class="btn ghost" id="openTerm">$ открыть терминал</button>
+      </div>
+      <div class="contact" id="contact">
+    <button class="cbox" data-copy="@ho10120"><small>Telegram</small><b>@ho10120</b><span>↳ клик — скопировать</span></button>
+    <button class="cbox" data-copy="+375 (33) 690-61-47"><small>Телефон</small><b>+375 (33) 690-61-47</b><span>↳ клик — скопировать</span></button>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="picofme.jpg" alt="Глеб Булойчик" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <div class="fb">ГБ</div>
+      <div class="chip"><i></i>status: <b>online</b><br>uptime: <span id="up">0d 0h 0m</span> / 99.9%</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Глеб Булойчик</span><span> </span></div></footer>
+
+<div class="dock" id="dock" role="dialog" aria-label="terminal">
+  <div class="tbar"><i></i><i></i><i></i><span>gleb@server: ~</span><button id="dockX" aria-label="close">✕</button></div>
+  <div class="tbody" id="tb"><div id="out"></div><div class="tin"><input id="ti" autocomplete="off" spellcheck="false" aria-label="terminal"></div></div>
+  <div class="hint"><button data-c="help">help</button><button data-c="about">about</button><button data-c="ping">ping</button><button data-c="contact">contact</button></div>
+</div>
+<button class="btn-s launch" id="launch">&gt;_ terminal</button>
+<div id="pal"><div class="pb"><input id="pi" placeholder="Введите команду…" autocomplete="off"><ul id="pl"></ul></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+$('#yr').textContent=new Date().getFullYear();
+const toast=(m)=>{const t=$('#toast');t.textContent=m;t.classList.add('v');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('v'),2200)};
+const copy=(v)=>{(navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(()=>{const a=document.createElement('textarea');a.value=v;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()});toast('Скопировано: '+v)};
+$$('.cbox').forEach(b=>b.onclick=()=>copy(b.dataset.copy));
+
+/* theme */
+const setTheme=t=>{document.documentElement.dataset.theme=t;try{localStorage.setItem('t',t)}catch(e){}};
+try{setTheme(localStorage.getItem('t')||'dark')}catch(e){setTheme('dark')}
+const flip=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+$('#themeBtn').onclick=flip;
+
+/* spotlight */
+addEventListener('pointermove',e=>{document.body.style.setProperty('--mx',e.clientX+'px');document.body.style.setProperty('--my',e.clientY+'px')});
+
+/* typing */
+const words=['строю быстрые API','проектирую отказоустойчивые сервисы','пишу код, который читается','оптимизирую запросы к БД'];
+let wi=0,ci=0,del=false;const el=$('#typed');
+(function tick(){const w=words[wi];el.textContent=w.slice(0,ci);
+ if(!del&&ci===w.length){del=true;return setTimeout(tick,1600)}
+ if(del&&ci===0){del=false;wi=(wi+1)%words.length}
+ ci+=del?-1:1;setTimeout(tick,del?25:55)})();
+
+/* uptime */
+const t0=Date.now()-(3*864e5+7*36e5);
+setInterval(()=>{const s=(Date.now()-t0)/1000|0;$('#up').textContent=`${s/86400|0}d ${(s/3600|0)%24}h ${(s/60|0)%60}m`},1000);
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.bar div').forEach(b=>b.style.width=b.dataset.w+'%');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(r=>io.observe(r));
+
+/* terminal */
+const out=$('#out'),ti=$('#ti'),hist=[];let hi=0;
+const print=(h,c)=>{const d=document.createElement('div');d.className=c||'o';d.innerHTML=h;out.appendChild(d);$('#tb').scrollTop=1e5};
+const cmds={
+ help:()=>'команды: <b>about</b>, <b>contact</b>, <b>ping</b>, <b>theme</b>, <b>clear</b>',
+ about:()=>'Глеб Булойчик — backend-разработчик.\nДелаю серверную архитектуру, API и сервисы,\nкоторые работают тихо и без ночных алертов.',
+ whoami:()=>'gleb — backend dev, open to work',
+ contact:()=>'telegram: <b>@ho10120</b>\nphone:    <b>+375 (33) 690-61-47</b>',
+ ping:()=>{const m=8+Math.random()*14|0;return `PING gleb.dev: 64 bytes, time=<b>${m}ms</b>, status=<b>200 OK</b>`},
+ theme:()=>{flip();return 'тема переключена'},
+ sudo:()=>'nice try :)',
+ clear:()=>{out.innerHTML='';return null}
+};
+function run(v){v=v.trim();if(!v)return;hist.push(v);hi=hist.length;print(v.replace(/</g,'&lt;'),'c');
+ const f=cmds[v.split(' ')[0].toLowerCase()];const r=f?f():`command not found: ${v.replace(/</g,'&lt;')} (введи <b>help</b>)`;if(r)print(r)}
+ti.addEventListener('keydown',e=>{
+ if(e.key==='Enter'){run(ti.value);ti.value=''}
+ else if(e.key==='ArrowUp'&&hi>0){ti.value=hist[--hi];e.preventDefault()}
+ else if(e.key==='ArrowDown'){ti.value=hist[++hi]||'';hi=Math.min(hi,hist.length)}
+ else if(e.key==='Tab'){e.preventDefault();const m=Object.keys(cmds).filter(k=>k.startsWith(ti.value));if(m.length===1)ti.value=m[0]}});
+$('#tb').onclick=()=>ti.focus();
+$$('.hint button').forEach(b=>b.onclick=()=>{run(b.dataset.c);ti.focus({preventScroll:true})});
+print('Добро пожаловать. Введи <b>help</b>, чтобы увидеть команды.');
+const dock=$('#dock'),launch=$('#launch');
+function term(open){const o=open===undefined?!dock.classList.contains('open'):open;dock.classList.toggle('open',o);launch.classList.toggle('hide',o);if(o)setTimeout(()=>ti.focus({preventScroll:true}),250)}
+$('#openTerm').onclick=()=>term(true);launch.onclick=()=>term(true);$('#dockX').onclick=()=>term(false);
+$('#navTerm').onclick=e=>{e.preventDefault();term()};
+
+/* command palette */
+const acts=[
+ ['Открыть терминал','Ctrl+`',()=>term(true)],
+ ['Перейти: Контакты','g c',()=>$('#contact').scrollIntoView()],
+ ['Скопировать Telegram','↵',()=>copy('@ho10120')],
+ ['Скопировать телефон','↵',()=>copy('+375 (33) 690-61-47')],
+ ['Переключить тему','t',flip]];
+let sel=0,fl=acts;
+const pal=$('#pal'),pi=$('#pi');
+function draw(){$('#pl').innerHTML=fl.map((a,i)=>`<li class="${i===sel?'sel':''}" data-i="${i}"><span>${a[0]}</span><span>${a[1]}</span></li>`).join('')}
+function openP(){pal.classList.add('open');pi.value='';fl=acts;sel=0;draw();pi.focus()}
+function closeP(){pal.classList.remove('open')}
+function go(i){const a=fl[i];if(a){closeP();a[2]()}}
+$('#palBtn').onclick=openP;
+pal.onclick=e=>{if(e.target===pal)closeP();const li=e.target.closest('li');if(li)go(+li.dataset.i)};
+pi.oninput=()=>{fl=acts.filter(a=>a[0].toLowerCase().includes(pi.value.toLowerCase()));sel=0;draw()};
+pi.onkeydown=e=>{if(e.key==='ArrowDown'){sel=Math.min(sel+1,fl.length-1);draw();e.preventDefault()}else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);draw();e.preventDefault()}else if(e.key==='Enter')go(sel)};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();pal.classList.contains('open')?closeP():openP()}else if((e.ctrlKey||e.metaKey)&&e.key==='`'){e.preventDefault();term()}else if(e.key==='Escape'){closeP();term(false)}});
+</script>
+</body>
+</html>
