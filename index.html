@@ -26,8 +26,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .btn-s{font:500 .75rem 'JetBrains Mono';color:var(--fg);background:none;border:1px solid var(--line);padding:.45rem .7rem;cursor:pointer;display:inline-flex;gap:.5rem;align-items:center;transition:.2s}
 .btn-s:hover{border-color:var(--acc);color:var(--acc)}
 kbd{font:inherit;font-size:.7rem;border:1px solid var(--line);padding:0 .3rem;color:var(--mut)}
-.hero{min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr auto;gap:clamp(2rem,6vw,6rem);align-items:center;padding:2rem 0;scroll-snap-align:start}
-.hero>div:first-child{display:flex;flex-direction:column;justify-content:center}
+.hero{min-height:calc(100vh - 64px);display:grid;grid-template-columns:auto 1fr;gap:clamp(2rem,6vw,6rem);align-items:center;padding:2rem 0;scroll-snap-align:start}
+.hero>div:not(.photo){display:flex;flex-direction:column;justify-content:center}
 .prompt{font:500 .85rem 'JetBrains Mono';color:var(--mut);margin-bottom:1.2rem}.prompt span{color:var(--acc)}
 h1{font:600 clamp(2rem,4.2vw,3.5rem)/1.05 'Unbounded';letter-spacing:-.035em}
 h1 em{font-style:normal;color:var(--acc);display:block}
@@ -40,7 +40,7 @@ h1 em{font-style:normal;color:var(--acc);display:block}
 .btn{font:500 .9rem 'Onest';padding:.8rem 1.4rem;border:1px solid var(--acc);background:var(--acc);color:var(--bg);cursor:pointer;text-decoration:none;transition:.2s}
 .btn:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--mut)}
 .btn.ghost{background:none;color:var(--fg);border-color:var(--line)}.btn.ghost:hover{border-color:var(--acc);color:var(--acc)}
-.photo{position:relative;height:min(calc(100vh - 64px - 5rem),600px);aspect-ratio:4/5;background:var(--bg2);clip-path:polygon(0 0,calc(100% - 44px) 0,100% 44px,100% 100%,0 100%);overflow:hidden;border:1px solid var(--line)}
+.photo{order:-1;position:relative;height:min(calc(100vh - 64px - 5rem),600px);aspect-ratio:4/5;background:var(--bg2);clip-path:polygon(0 0,calc(100% - 44px) 0,100% 44px,100% 100%,0 100%);overflow:hidden;border:1px solid var(--line)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .6s}.photo:hover img{transform:scale(1.03)}
 .photo .fb{position:absolute;inset:0;display:none;place-items:center;font:700 6rem 'Unbounded';color:var(--acc)}
 .chip{position:absolute;left:1rem;bottom:1rem;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);padding:.6rem .85rem;font:.74rem/1.6 'JetBrains Mono'}
@@ -99,6 +99,11 @@ footer{border-top:1px solid var(--line);padding:1.5rem 0;color:var(--mut);font:.
 
 <main id="top"><div class="wrap">
   <div class="hero">
+    <div class="photo">
+      <img src="picofme.jpg" alt="Глеб Булойчик" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <div class="fb">ГБ</div>
+      <div class="chip"><i></i>status: <b>online</b><br>uptime: <span id="up">0d 0h 0m</span> / 99.9%</div>
+    </div>
     <div>
       <div class="prompt"><span>gleb@server</span>:~$ whoami</div>
       <h1>Глеб Булойчик<em>Backend-разработчик</em></h1>
@@ -113,16 +118,11 @@ footer{border-top:1px solid var(--line);padding:1.5rem 0;color:var(--mut);font:.
     <button class="cbox" data-copy="+375 (33) 690-61-47"><small>Телефон</small><b>+375 (33) 690-61-47</b><span>↳ клик — скопировать</span></button>
       </div>
     </div>
-    <div class="photo">
-      <img src="picofme.jpg" alt="Глеб Булойчик" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-      <div class="fb">ГБ</div>
-      <div class="chip"><i></i>status: <b>online</b><br>uptime: <span id="up">0d 0h 0m</span> / 99.9%</div>
-    </div>
   </div>
 </div>
 
 </main>
-
+ 
 <footer><div class="wrap"><span>© <span id="yr"></span> Глеб Булойчик</span><span> </span></div></footer>
 
 <div class="dock" id="dock" role="dialog" aria-label="terminal">
